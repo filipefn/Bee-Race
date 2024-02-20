@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="time_remaining">Time remaining</string>
+    <string name="icon_bee">Icon bee</string>
+    <string name="medal">Medal</string>
+    <string name="sufix_first">%1$d sd</string>
+    <string name="sufix_second_and_third">%1$d nd</string>
+    <string name="sufix_another">%1$d th</string>
+    <string name="first_place">1 st</string>
+    <string name="winner">Winner</string>
+    <string name="re_start_bee_race">re-Start Bee Race</string>
+    <string name="start_race">Start Race</string>
+    <string name="something_went_wrong">Something went Wrong</string>
+
+</resources>
