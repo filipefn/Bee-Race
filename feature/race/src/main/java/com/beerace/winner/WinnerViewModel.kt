@@ -60,7 +60,7 @@ internal class WinnerViewModel @Inject constructor(
                     onSuccess = { moveForwardToRace(it) },
                     onError = {
                         _state.value = WinnerUiState.Loaded(winner)
-                        snackbarManager.show(AlertSnackbarVisuals(StringResource.fromId(R.string.something_went_wrong).toString()))
+                        snackbarManager.show(AlertSnackbarVisuals(StringResource.fromId(R.string.something_went_wrong)))
                     }
                 )
         }

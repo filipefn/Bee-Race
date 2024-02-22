@@ -49,6 +49,7 @@ internal class RaceViewModel @Inject constructor(
 
     fun handle(event: RaceEvent) {
         if (event is RaceEvent.OnCloseWebView)  {
+            _state.value = RaceUIState.Loading
             start()
         }
     }
@@ -56,7 +57,7 @@ internal class RaceViewModel @Inject constructor(
     private fun start() {
         viewModelScope.launch {
             while (remainingSeconds > 0) {
-                if (_state.value !is RaceUIState.WebViewError ) {
+                if (_state.value !is RaceUIState.WebViewError) {
                     delay(1000)
                     remainingSeconds--
                     fetchStatusRace()
@@ -85,7 +86,7 @@ internal class RaceViewModel @Inject constructor(
                     if (it == ErrorType.CHECK_ROBOT) {
                         _state.value = RaceUIState.WebViewError
                     }
-                    else snackbarManager.show(AlertSnackbarVisuals(StringResource.fromId(R.string.something_went_wrong).toString()))
+                    else snackbarManager.show(AlertSnackbarVisuals(StringResource.fromId(R.string.something_went_wrong)))
                 }
             )
     }

@@ -22,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.beerace.commons.R
 import com.beerace.commons.navigation.command.NavigationCommand
+import com.beerace.commons.snackbar.AlertSnackbarHost
 import com.beerace.commons.snackbar.AlertSnackbarVisuals
 import com.beerace.commons.snackbar.SnackbarController
 import com.beerace.commons.snackbar.SnackbarManager
@@ -61,7 +62,9 @@ fun Navigator(
         }
     }
 
-    Scaffold(Modifier.background(MaterialTheme.colorScheme.primary)) { padding ->
+    Scaffold(Modifier.background(MaterialTheme.colorScheme.primary),
+        snackbarHost = { AlertSnackbarHost(snackbarHostState = snackbarHostState) }) { padding ->
+
         Box(modifier = Modifier.padding(padding)) {
             NavHost(
                 navController = navController,
@@ -79,9 +82,7 @@ fun Navigator(
             if (internetStatus == ConnectivityObserver.ConnectivityStatus.Lost) {
                 LaunchedEffect(Unit) {
                     snackbarManager.show(
-                        visuals = AlertSnackbarVisuals(
-                            message = StringResource.fromId(R.string.offline_error).toString()
-                        )
+                        visuals = AlertSnackbarVisuals(StringResource.fromId(R.string.offline_error))
                     )
                 }
             }

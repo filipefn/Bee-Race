@@ -6,9 +6,11 @@ import com.beerace.commons.navigation.NavigationManager
 import com.beerace.commons.navigation.direction.RaceDirections
 import com.beerace.commons.snackbar.AlertSnackbarVisuals
 import com.beerace.commons.snackbar.SnackbarManager
+import com.beerace.commons.string.StringResource
 import com.beerace.domain.timerace.GetTimeRaceUseCase
 import com.beerace.domain.util.doOnResult
 import com.beerace.domain.util.map
+import com.beerace.race.R
 import com.beerace.start.model.StartEvent
 import com.beerace.start.model.StartUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +42,7 @@ internal class StartViewModel @Inject constructor(
                     onSuccess = { moveForwardToRace(it) },
                     onError = {
                         _state.value = StartUiState.Initial
-                        snackbarManager.show(AlertSnackbarVisuals("Something went Wrong"))
+                        snackbarManager.show(AlertSnackbarVisuals(StringResource.fromId(R.string.something_went_wrong)))
                     }
                 )
         }
@@ -48,5 +50,6 @@ internal class StartViewModel @Inject constructor(
 
     private suspend fun moveForwardToRace(time: String) {
         navigationManager.navigate(RaceDirections.forwardWithArgs(time))
+        _state.value = StartUiState.Initial
     }
 }

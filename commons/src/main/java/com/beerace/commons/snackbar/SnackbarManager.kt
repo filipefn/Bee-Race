@@ -16,7 +16,7 @@ class SnackbarManager @Inject constructor() {
 
     suspend fun show(
         visuals: AlertSnackbarVisuals,
-        duration: Long = DURATION_TIME_LONG,
+        duration: Long = DURATION_TIME_SHORT,
         onActionPerformed: () -> Unit = {}
     ) {
         _commands.emit(
