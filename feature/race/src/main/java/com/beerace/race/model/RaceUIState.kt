@@ -9,4 +9,7 @@ internal sealed class RaceUIState {
 
     object Loading : RaceUIState()
     object WebViewError : RaceUIState()
+    object Error : RaceUIState()
 }
+
+internal fun RaceUIState.checkIsNotErrorState() = this is RaceUIState.Error || this is RaceUIState.WebViewError

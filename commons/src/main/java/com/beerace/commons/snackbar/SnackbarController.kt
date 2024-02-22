@@ -30,8 +30,8 @@ fun SnackbarController(
                     it.onActionPerformed()
                 }
             }
+
             if (it.visual.duration == SnackbarDuration.Indefinite) {
-                // workaround to allow custom durations
                 delay(it.duration)
                 job.cancel()
             }

@@ -11,5 +11,6 @@
     <string name="re_start_bee_race">re-Start Bee Race</string>
     <string name="start_race">Start Race</string>
     <string name="something_went_wrong">Something went Wrong</string>
+    <string name="race_something_went_wrong">Something went wrong try again</string>
 
 </resources>

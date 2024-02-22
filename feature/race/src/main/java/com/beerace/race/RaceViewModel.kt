@@ -17,6 +17,7 @@ import com.beerace.race.factory.RaceUiFactory
 import com.beerace.race.model.RaceEvent
 import com.beerace.race.model.RaceUIState
 import com.beerace.race.model.StatusRaceUiModel
+import com.beerace.race.model.checkIsNotErrorState
 import com.beerace.winner.factory.WinnerUiFactory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.awaitCancellation
@@ -37,7 +38,7 @@ internal class RaceViewModel @Inject constructor(
     private val navigationManager: NavigationManager,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
+    private val DURATION_TIME_LONG = 20000L
     private val _state = MutableStateFlow<RaceUIState>(RaceUIState.Loading)
     val state = _state.asStateFlow()
 
@@ -48,16 +49,15 @@ internal class RaceViewModel @Inject constructor(
     }
 
     fun handle(event: RaceEvent) {
-        if (event is RaceEvent.OnCloseWebView)  {
-            _state.value = RaceUIState.Loading
-            start()
+        if (event is RaceEvent.OnCloseWebView) {
+            returnToRace()
         }
     }
 
     private fun start() {
         viewModelScope.launch {
             while (remainingSeconds > 0) {
-                if (_state.value !is RaceUIState.WebViewError) {
+                if (_state.value.checkIsNotErrorState().not()) {
                     delay(1000)
                     remainingSeconds--
                     fetchStatusRace()
@@ -85,10 +85,22 @@ internal class RaceViewModel @Inject constructor(
                 onError = {
                     if (it == ErrorType.CHECK_ROBOT) {
                         _state.value = RaceUIState.WebViewError
+                    } else {
+                        _state.value = RaceUIState.Error
+                        snackbarManager.show(AlertSnackbarVisuals(
+                            messageId = StringResource.fromId(R.string.race_something_went_wrong)
+                        ),
+                            duration = DURATION_TIME_LONG,
+                            onActionPerformed = { returnToRace() }
+                        )
                     }
-                    else snackbarManager.show(AlertSnackbarVisuals(StringResource.fromId(R.string.something_went_wrong)))
                 }
             )
+    }
+
+    private fun returnToRace() {
+        _state.value = RaceUIState.Loading
+        start()
     }
 
     private suspend fun moveForwardToWinner(statusRaceUiModel: StatusRaceUiModel) {

@@ -59,7 +59,7 @@ private fun RaceScreen(
 ) {
 
     when (state) {
-        is RaceUIState.Loading -> LoaderComponent()
+        is RaceUIState.Loading, RaceUIState.Error -> LoaderComponent()
         is RaceUIState.WebViewError -> WebViewSetup(onEvent = onEvent)
         is RaceUIState.Loaded -> {
             Column(
