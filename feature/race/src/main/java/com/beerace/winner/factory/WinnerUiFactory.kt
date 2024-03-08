@@ -2,13 +2,15 @@ package com.beerace.winner.factory
 
 import com.beerace.race.model.StatusRaceUiModel
 import com.beerace.winner.model.WinnerUiModel
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class WinnerUiFactory @Inject constructor() {
 
-    operator fun invoke(
+    suspend operator fun invoke(
         statusRace: StatusRaceUiModel
-    ) = with(statusRace) {
-        WinnerUiModel(name = name, color = color?.replace("#",""))
+    ) = withContext(Default) {
+        WinnerUiModel(name = statusRace.name, color = statusRace.color?.replace("#",""))
     }
 }

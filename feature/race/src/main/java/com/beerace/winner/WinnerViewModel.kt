@@ -45,7 +45,6 @@ internal class WinnerViewModel @Inject constructor(
         if (event is WinnerEvent.ReStartClick) fetchTimeRace()
     }
 
-
     private fun setUpWinner() {
         winner = Json.decodeFromString(winnerString)
         _state.value = WinnerUiState.Loaded(winner)

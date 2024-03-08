@@ -2,7 +2,7 @@ package com.beerace.race.model
 
 import com.beerace.race.R
 
-enum class PositionEnum(val medal: Int?, val sufix: Int) {
+internal enum class PositionEnum(val medal: Int?, val sufix: Int) {
     FIRST_PLACE(medal = R.drawable.first, sufix = R.string.sufix_first),
     SECOND_PLACE(medal = R.drawable.second, sufix = R.string.sufix_second_and_third),
     THIRD_PLACE(medal = R.drawable.third, sufix = R.string.sufix_second_and_third),

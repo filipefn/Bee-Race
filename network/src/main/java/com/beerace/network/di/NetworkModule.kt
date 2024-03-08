@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-open class NetworkModule {
+internal open class NetworkModule {
 
         private fun getBaseUrl() = "https://rtest.proxy.beeceptor.com"
 

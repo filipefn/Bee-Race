@@ -6,7 +6,7 @@ import com.beerace.commons.navigation.NavigationManager
 import com.beerace.commons.navigation.direction.StartDirection
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class SplashViewModel @Inject constructor(
     init {
         val delay = 2000L
 
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Default).launch {
             delay(delay)
             onNavigationToRace()
         }

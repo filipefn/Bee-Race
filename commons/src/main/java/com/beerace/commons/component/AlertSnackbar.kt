@@ -96,7 +96,7 @@ fun AlertSnackbar(
 
 @Preview
 @Composable
-private fun NotificationSnackbarPreview() {
+private fun AlertSnackbarComponentPreview() {
     MaterialTheme {
         AlertSnackbar(
             "Error"
