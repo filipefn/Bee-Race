@@ -28,8 +28,7 @@ internal class ResultCall<T>(
         val result = if (response.isSuccessful) {
             body.toResult()
         } else {
-            if (code == CHECK_ROBOT) Result.failure(Failure.CheckRobot())
-            else Result.failure(Failure.GenericError())
+            Result.failure(Failure.GenericError())
         }
 
         return Response.success(result)
@@ -44,8 +43,7 @@ internal class ResultCall<T>(
                 val result = if (response.isSuccessful) {
                     body.toResult()
                 } else {
-                    if (code == CHECK_ROBOT) Result.failure(Failure.CheckRobot())
-                    else Result.failure(Failure.GenericError())
+                    Result.failure(Failure.GenericError())
                 }
 
                 callback.onResponse(

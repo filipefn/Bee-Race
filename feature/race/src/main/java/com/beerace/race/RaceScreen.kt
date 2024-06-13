@@ -35,9 +35,6 @@ import com.beerace.race.model.PositionEnum
 import com.beerace.race.model.RaceEvent
 import com.beerace.race.model.RaceUIState
 import com.beerace.race.model.StatusRaceUiModel
-import com.beerace.webview.WebContent
-import com.beerace.webview.WebView
-import com.beerace.webview.rememberWebViewState
 
 
 @Composable
@@ -60,7 +57,6 @@ private fun RaceScreen(
 
     when (state) {
         is RaceUIState.Loading, RaceUIState.Error -> LoaderComponent()
-        is RaceUIState.WebViewError -> WebViewSetup(onEvent = onEvent)
         is RaceUIState.Loaded -> {
             Column(
                 Modifier
@@ -80,17 +76,6 @@ private fun RaceScreen(
             }
         }
     }
-}
-
-@Composable
-private fun WebViewSetup(onEvent: ClickEventOneArg<RaceEvent>) {
-    val content = WebContent.Url(
-        url = "https://www.google.com/recaptcha/api2/demo",
-    )
-
-    val webViewState = rememberWebViewState(content)
-
-    WebView(state = webViewState, onClose = { onEvent(RaceEvent.OnCloseWebView) })
 }
 
 @Composable

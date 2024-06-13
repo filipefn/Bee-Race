@@ -10,11 +10,6 @@ sealed class Failure constructor(
         override val errorMessage:  String = ""
     ) : Failure()
 
-    data class CheckRobot(
-        override val code:  String = "403",
-        override val errorMessage: String = ""
-    ) : Failure()
-
     data class NetworkError(
         override val code: String ="10530",
         override val errorMessage: String = "No network connection Error"

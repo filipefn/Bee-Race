@@ -78,22 +78,18 @@ internal class RaceViewModel @Inject constructor(
     }
 
     private suspend fun fetchStatusRace() {
-        getStatusRaceUseCase()
+        getStatusRaceUseCase.invoke()
             .map { raceUIFactory(it) }
             .doOnResult(
                 onSuccess = { _state.value = RaceUIState.Loaded(formatTime(), it) },
                 onError = {
-                    if (it == ErrorType.CHECK_ROBOT) {
-                        _state.value = RaceUIState.WebViewError
-                    } else {
-                        _state.value = RaceUIState.Error
-                        snackbarManager.show(AlertSnackbarVisuals(
-                            messageId = StringResource.fromId(R.string.race_something_went_wrong)
-                        ),
-                            duration = DURATION_TIME_LONG,
-                            onActionPerformed = { returnToRace() }
-                        )
-                    }
+                    _state.value = RaceUIState.Error
+                    snackbarManager.show(AlertSnackbarVisuals(
+                        messageId = StringResource.fromId(R.string.race_something_went_wrong)
+                    ),
+                        duration = DURATION_TIME_LONG,
+                        onActionPerformed = { returnToRace() }
+                    )
                 }
             )
     }
@@ -104,6 +100,12 @@ internal class RaceViewModel @Inject constructor(
     }
 
     private suspend fun moveForwardToWinner(statusRaceUiModel: StatusRaceUiModel) {
-        navigationManager.navigate(WinnerDirections.forwardWithArgs(Json.encodeToString(winnerUIFactory(statusRaceUiModel))))
+        navigationManager.navigate(
+            WinnerDirections.forwardWithArgs(
+                Json.encodeToString(
+                    winnerUIFactory(statusRaceUiModel)
+                )
+            )
+        )
     }
 }

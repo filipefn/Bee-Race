@@ -7,5 +7,4 @@ fun Failure.toErrorResult() =
     when (this) {
         is Failure.GenericError -> ErrorType.GENERIC_ERROR
         is Failure.NetworkError -> ErrorType.NETWORK
-        is Failure.CheckRobot -> ErrorType.CHECK_ROBOT
     }
